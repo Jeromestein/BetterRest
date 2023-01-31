@@ -19,6 +19,7 @@
 		CC8892F229873D33007B690B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CC8892F429873D34007B690B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC8892F729873D34007B690B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CC8892FE2988C900007B690B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +36,7 @@
 		CC8892E429873D33007B690B = {
 			isa = PBXGroup;
 			children = (
+				CC8892FE2988C900007B690B /* README.md */,
 				CC8892EF29873D33007B690B /* BetterRest */,
 				CC8892EE29873D33007B690B /* Products */,
 			);
