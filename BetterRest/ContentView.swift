@@ -8,7 +8,7 @@ import CoreML
 import SwiftUI
 
 struct ContentView: View {
-    @State private var wakeUp = Date.now
+    @State private var wakeUp = defaultWakeTime
     @State private var sleepAmount = 8.0
     @State private var coffeeAmount = 1
     
@@ -16,27 +16,34 @@ struct ContentView: View {
     @State private var alertMessage = ""
     @State private var showingAlert = false
     
+    /**
+     @State private var wakeUp = defaultWakeTime
+     -- we’re accessing one property from inside another – Swift doesn’t know which order the properties will be created in, so this isn’t allowed.
+     Fix:
+     Make defaultWakeTime a static variable, which means it belongs to the ContentView struct itself rather than a single instance of that struct. This in turn means defaultWakeTime can be read whenever we want, because it doesn’t rely on the existence of any other properties.
+     */
+    static var defaultWakeTime: Date {
+        var components = DateComponents()
+        components.hour = 7
+        components.minute = 0
+        return Calendar.current.date(from: components) ?? Date.now
+    }
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Text("When do you want to wake up?")
-                    .font(.headline)
-
-                DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
-                    .labelsHidden()
-                    .padding([.leading, .bottom, .trailing])
+            Form {
+                Section("When do you want to wake up?") {
+                    DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
+                        .labelsHidden()
+                }
                 
-                Text("Desired amount of sleep")
-                    .font(.headline)
-
-                Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
-                    .padding([.leading, .bottom, .trailing])
+                Section("Desired amount of sleep") {
+                    Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                }
                 
-                Text("Daily coffee intake")
-                    .font(.headline)
-
-                Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
-                    .padding([.leading, .bottom, .trailing])
+                Section("Daily coffee intake") {
+                    Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...50)
+                }
             }
             .navigationTitle("BetterRest")
             .toolbar {
